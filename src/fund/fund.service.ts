@@ -32,7 +32,7 @@ export class FundService {
     });
   }
 
-  private async initialize() {
+  protected async initialize() {
     const signer = await this.provider.getSigner();
     const contractAddress = process.env.CONTRACT_ADDRESS;
     if (!contractAddress) {
