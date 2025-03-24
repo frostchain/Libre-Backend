@@ -25,7 +25,7 @@ This backend service enables users to invest in or redeem from a fund managed th
     
 
 ```
-git clone https://github.com/your-org/investment-fund-management.git
+git clone https://github.com/frostchain/Libre-Backend.git
 
 cd investment-fund-management
 ```
@@ -39,11 +39,11 @@ npm install
 3.  **Configure environment variables** Create a `.env` file at the root with the following:
     
 ```
-RPC\_URL=https://mainnet.infura.io/v3/your-api-key
+RPC_URL=https://mainnet.infura.io/v3/your-api-key
 
-CONTRACT\_ADDRESS=0xYourSmartContractAddress
+CONTRACT_ADDRESS=0xYourSmartContractAddress
 
-REDIS\_URL=redis://localhost:6379
+REDIS_URL=redis://localhost:6379
 
 PORT=3000
 ```
