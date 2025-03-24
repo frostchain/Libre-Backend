@@ -27,7 +27,7 @@ This backend service enables users to invest in or redeem from a fund managed th
 ```
 git clone https://github.com/frostchain/Libre-Backend.git
 
-cd investment-fund-management
+cd Libre-Backend
 ```
 
 2.  **Install dependencies**
@@ -61,7 +61,7 @@ npm run start:dev
 
 ### Base URL
 ```
-{{BASE\_URL}} = http://localhost:3000
+BASE_URL = http://localhost:3000
 ```
 ### 🔁 Endpoints
 
