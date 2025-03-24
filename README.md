@@ -191,19 +191,3 @@ npm run test
 ```
 npm run test:e2e
 ```
-- - -
-
-## 🛡 Assumptions & Notes
-
-*   Smart contract must implement the `IFundToken` interface exactly.
-    
-*   USD amounts are passed as integer values with 6 decimal precision (e.g., $1 = 1000000).
-    
-*   This backend does **not** perform authentication (add if needed).
-    
-
-- - -
-
-## 🤝 Contributing
-
-Pull requests welcome! Ensure your code passes tests and follows the style guide.

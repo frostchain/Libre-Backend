@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ethers, JsonRpcProvider } from 'ethers';
+import { ethers, JsonRpcProvider, formatUnits, parseUnits } from 'ethers';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Redis from 'ioredis';
@@ -55,7 +55,7 @@ export class FundService {
 
   async invest(investor: string, usdAmount: number) {
     try {
-      const tx = await this.contract.invest(investor, usdAmount);
+      const tx = await this.contract.invest(investor, parseUnits(usdAmount.toString(), 6));
       const receipt = await tx.wait();
 
       // Record the investment transaction
@@ -78,7 +78,7 @@ export class FundService {
 
   async redeem(investor: string, shares: number) {
     try {
-      const tx = await this.contract.redeem(investor, shares);
+      const tx = await this.contract.redeem(investor, parseUnits(shares.toString(), 6));
       const receipt = await tx.wait();
 
       // Record the redemption transaction
@@ -101,7 +101,8 @@ export class FundService {
 
   async getBalance(investor: string) {
     try {
-      return await this.contract.balanceOf(investor);
+        const balance = await this.contract.balanceOf(investor);
+        return formatUnits(balance, 6);
     } catch (error) {
       this.logger.error('Error fetching balance', error);
       throw error;
@@ -128,10 +129,10 @@ export class FundService {
       const metrics = await this.contract.getFundMetrics();
       const sharePrice = await this.contract.getSharePrice();
       const metricsData = {
-        totalAssetValue: metrics.totalAssetValue.toString(),
-        sharesSupply: metrics.sharesSupply.toString(),
-        lastUpdateTime: metrics.lastUpdateTime.toNumber(),
-        sharePrice: sharePrice.toString(),
+        totalAssetValue: formatUnits(metrics.totalAssetValue, 6).toString(),
+        sharesSupply: formatUnits(metrics.sharesSupply, 6).toString(),
+        lastUpdateTime: new Date(metrics.lastUpdateTime.toNumber() * 1000),
+        sharePrice: formatUnits(sharePrice, 6).toString(),
       };
       await this.updateMetricsCache(metricsData);
       return metricsData;
